@@ -2,7 +2,7 @@
 
 纯前端的批量图片压缩工具。拖进来、调参数、打包下载 —— **所有处理都在浏览器里完成，图片不会离开本机**。没有后端、没有上传、没有账号。
 
-**在线演示**：https://image-compression-workbench.r6mhh6hkwj.workers.dev
+**在线演示**：https://img-compress-dae.pages.dev
 
 React 19 · TypeScript 7 · Vite 8 · Tailwind CSS 4 · Web Worker · OffscreenCanvas
 
@@ -164,14 +164,14 @@ npm run build    # tsc 三个 project + vite build
 
 ## 部署
 
-当前托管在 Cloudflare Workers 静态资源，手动直传：
+当前托管在 Cloudflare Pages（直传模式，项目名 `img-compress`），手动发布：
 
 ```bash
 npm run build
 node scripts/zip-dist.mjs dist dist.zip
 ```
 
-然后在 Cloudflare 面板：**Workers & Pages → Create → Upload your static files**，上传 `dist.zip`。
+然后在 Cloudflare 面板：**Workers & Pages → 创建 → Pages → 拖放文件**，上传 `dist.zip`。
 
 > 不要用 Windows 自带的 `Compress-Archive`：它会把条目名写成 `assets\index-xxx.js`（反斜杠），
 > 上传后所有 `/assets/*` 都会 404。`scripts/zip-dist.mjs` 用 fflate 打包并强制正斜杠。
