@@ -1,9 +1,57 @@
 @import "tailwindcss";
 
+/* 主题切换靠 <html class="dark">，不是只跟随系统，所以定义类选择器变体 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC",
     "Microsoft YaHei", sans-serif;
+
+  /* 语义色：组件只使用这些 token，不直接写 zinc-* / blue-* */
+  --color-canvas: oklch(0.985 0.002 286);
+  --color-surface: oklch(1 0 0);
+  --color-sunken: oklch(0.967 0.003 286);
+  --color-line: oklch(0.922 0.004 286);
+  --color-ink: oklch(0.21 0.006 285.9);
+  --color-muted: oklch(0.552 0.014 285.9);
+  --color-faint: oklch(0.705 0.015 286.1);
+
+  --color-accent: oklch(0.546 0.245 262.9);
+  --color-accent-hover: oklch(0.488 0.243 264.4);
+  --color-accent-soft: oklch(0.97 0.014 254.6);
+  --color-accent-ink: oklch(1 0 0);
+
+  --color-success: oklch(0.508 0.118 165.6);
+  --color-success-soft: oklch(0.979 0.021 166.1);
+  --color-danger: oklch(0.577 0.245 27.3);
+  --color-danger-soft: oklch(0.971 0.013 17.4);
+  --color-warn: oklch(0.554 0.135 55);
+  --color-warn-soft: oklch(0.987 0.022 95.3);
+
+  --color-scrim: oklch(0 0 0 / 0.45);
+}
+
+.dark {
+  --color-canvas: oklch(0.16 0.005 286);
+  --color-surface: oklch(0.205 0.006 286);
+  --color-sunken: oklch(0.252 0.006 286);
+  --color-line: oklch(0.312 0.006 286);
+  --color-ink: oklch(0.968 0.001 286);
+  --color-muted: oklch(0.705 0.012 286);
+  --color-faint: oklch(0.552 0.012 286);
+
+  --color-accent: oklch(0.623 0.188 259.8);
+  --color-accent-hover: oklch(0.68 0.17 259);
+  --color-accent-soft: oklch(0.28 0.07 262);
+  --color-accent-ink: oklch(0.99 0 0);
+
+  --color-success: oklch(0.765 0.15 163);
+  --color-success-soft: oklch(0.26 0.05 166);
+  --color-danger: oklch(0.704 0.191 22);
+  --color-danger-soft: oklch(0.27 0.06 25);
+  --color-warn: oklch(0.795 0.15 82);
+  --color-warn-soft: oklch(0.28 0.05 78);
 }
 
 @layer base {
@@ -11,10 +59,14 @@
     color-scheme: light;
   }
 
+  html.dark {
+    color-scheme: dark;
+  }
+
   body {
     margin: 0;
-    background-color: var(--color-zinc-50);
-    color: var(--color-zinc-900);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }

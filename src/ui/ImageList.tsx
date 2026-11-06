@@ -77,10 +77,10 @@ export function ImageList({ items, onRemove }: ImageListProps) {
   const visible = items.slice(start, end)
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm">
-      <header className="flex items-center justify-between border-b border-zinc-100 px-4 py-3">
-        <h2 className="text-sm font-semibold text-zinc-900">图片列表</h2>
-        <span aria-live="polite" className="tabular text-xs text-zinc-500">
+    <section className="overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
+      <header className="flex items-center justify-between border-b border-line px-4 py-3">
+        <h2 className="text-sm font-semibold text-ink">图片列表</h2>
+        <span aria-live="polite" className="tabular text-xs text-muted">
           {doneCount} / {items.length} 已完成
         </span>
       </header>
@@ -101,7 +101,7 @@ export function ImageList({ items, onRemove }: ImageListProps) {
               // 虚拟化只挂载视口内的行；这两个属性让读屏软件知道真实的总数与位置
               aria-setsize={items.length}
               aria-posinset={start + index + 1}
-              className="absolute inset-x-0 border-b border-zinc-100"
+              className="absolute inset-x-0 border-b border-line"
               style={{ top: (start + index) * ROW_HEIGHT, height: ROW_HEIGHT }}
             >
               <ImageRow item={item} onRemove={onRemove} />

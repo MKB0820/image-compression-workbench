@@ -29,16 +29,16 @@ export function SettingsBar({ settings, support, onChange }: SettingsBarProps) {
   }
 
   return (
-    <section className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-      <h2 className="text-sm font-semibold text-zinc-900">压缩设置</h2>
+    <section className="rounded-2xl border border-line bg-surface p-5 shadow-sm">
+      <h2 className="text-sm font-semibold text-ink">压缩设置</h2>
 
       {/* 质量 */}
       <div className="mt-5">
         <div className="flex items-baseline justify-between">
-          <label htmlFor="quality" className="text-xs font-medium text-zinc-600">
+          <label htmlFor="quality" className="text-xs font-medium text-muted">
             质量
           </label>
-          <span className="tabular text-xs font-semibold text-zinc-900">{qualityPercent}%</span>
+          <span className="tabular text-xs font-semibold text-ink">{qualityPercent}%</span>
         </div>
         <input
           id="quality"
@@ -48,20 +48,20 @@ export function SettingsBar({ settings, support, onChange }: SettingsBarProps) {
           step={0.01}
           value={settings.quality}
           onChange={(event) => onChange({ ...settings, quality: Number(event.target.value) })}
-          className="mt-2 w-full accent-blue-600"
+          className="mt-2 w-full accent-accent"
         />
-        <p className="mt-1 text-[11px] leading-relaxed text-zinc-400">
+        <p className="mt-1 text-[11px] leading-relaxed text-faint">
           PNG 是无损格式，质量滑块对 PNG 输出无效。
         </p>
       </div>
 
       {/* 输出格式 */}
       <div className="mt-5">
-        <span className="text-xs font-medium text-zinc-600">输出格式</span>
+        <span className="text-xs font-medium text-muted">输出格式</span>
         <div
           role="group"
           aria-label="输出格式"
-          className="mt-2 grid grid-cols-3 gap-1 rounded-lg bg-zinc-100 p-1"
+          className="mt-2 grid grid-cols-3 gap-1 rounded-lg bg-sunken p-1"
         >
           {FORMATS.map((format) => {
             const active = settings.format === format.value
@@ -77,9 +77,9 @@ export function SettingsBar({ settings, support, onChange }: SettingsBarProps) {
                 className={[
                   'rounded-md px-2 py-1.5 text-xs font-medium transition',
                   active
-                    ? 'bg-white text-zinc-900 shadow-sm'
-                    : 'text-zinc-500 hover:text-zinc-800',
-                  disabled ? 'cursor-not-allowed opacity-40 hover:text-zinc-500' : '',
+                    ? 'bg-surface text-ink shadow-sm'
+                    : 'text-muted hover:text-ink',
+                  disabled ? 'cursor-not-allowed opacity-40 hover:text-muted' : '',
                 ].join(' ')}
               >
                 {format.label}
@@ -87,7 +87,7 @@ export function SettingsBar({ settings, support, onChange }: SettingsBarProps) {
             )
           })}
         </div>
-        <p className="mt-1 text-[11px] leading-relaxed text-zinc-400">
+        <p className="mt-1 text-[11px] leading-relaxed text-faint">
           {support.webp ? (
             <>&ldquo;保持原格式&rdquo;下，PNG 仍输出 PNG，不会偷偷转成有损。</>
           ) : (
@@ -98,10 +98,10 @@ export function SettingsBar({ settings, support, onChange }: SettingsBarProps) {
 
       {/* 尺寸限制 */}
       <div className="mt-5">
-        <span className="text-xs font-medium text-zinc-600">最大尺寸（px，留空不缩放）</span>
+        <span className="text-xs font-medium text-muted">最大尺寸（px，留空不缩放）</span>
         <div className="mt-2 grid grid-cols-2 gap-2">
-          <label className="flex items-center gap-2 rounded-lg border border-zinc-200 px-2.5 py-1.5 focus-within:border-blue-500">
-            <span className="text-[11px] text-zinc-400">宽</span>
+          <label className="flex items-center gap-2 rounded-lg border border-line px-2.5 py-1.5 transition focus-within:border-accent">
+            <span className="text-[11px] text-faint">宽</span>
             <input
               type="number"
               min={1}
@@ -111,11 +111,11 @@ export function SettingsBar({ settings, support, onChange }: SettingsBarProps) {
               onChange={(event) =>
                 onChange({ ...settings, maxWidth: parseDimension(event.target.value) })
               }
-              className="tabular w-full bg-transparent text-sm text-zinc-900 outline-none placeholder:text-zinc-300"
+              className="tabular w-full bg-transparent text-sm text-ink outline-none placeholder:text-faint/60"
             />
           </label>
-          <label className="flex items-center gap-2 rounded-lg border border-zinc-200 px-2.5 py-1.5 focus-within:border-blue-500">
-            <span className="text-[11px] text-zinc-400">高</span>
+          <label className="flex items-center gap-2 rounded-lg border border-line px-2.5 py-1.5 transition focus-within:border-accent">
+            <span className="text-[11px] text-faint">高</span>
             <input
               type="number"
               min={1}
@@ -125,7 +125,7 @@ export function SettingsBar({ settings, support, onChange }: SettingsBarProps) {
               onChange={(event) =>
                 onChange({ ...settings, maxHeight: parseDimension(event.target.value) })
               }
-              className="tabular w-full bg-transparent text-sm text-zinc-900 outline-none placeholder:text-zinc-300"
+              className="tabular w-full bg-transparent text-sm text-ink outline-none placeholder:text-faint/60"
             />
           </label>
         </div>

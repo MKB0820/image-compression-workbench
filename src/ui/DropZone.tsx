@@ -49,11 +49,11 @@ export function DropZone({ onFiles, compact = false }: DropZoneProps) {
       }}
       className={[
         'group flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed text-center outline-none transition',
-        'focus-visible:ring-2 focus-visible:ring-blue-500/40',
+        'focus-visible:ring-2 focus-visible:ring-accent/40',
         compact ? 'gap-1 px-6 py-5' : 'gap-2 px-6 py-16',
         isOver
-          ? 'border-blue-500 bg-blue-50'
-          : 'border-zinc-300 bg-white hover:border-zinc-400 hover:bg-zinc-50',
+          ? 'border-accent bg-accent-soft'
+          : 'border-line bg-surface hover:border-muted/40 hover:bg-sunken/60',
       ].join(' ')}
     >
       <input
@@ -78,7 +78,7 @@ export function DropZone({ onFiles, compact = false }: DropZoneProps) {
         stroke="currentColor"
         strokeWidth="1.5"
         className={[
-          'text-zinc-400 transition group-hover:text-zinc-500',
+          'text-faint transition group-hover:text-muted',
           compact ? 'h-5 w-5' : 'h-9 w-9',
         ].join(' ')}
       >
@@ -89,10 +89,10 @@ export function DropZone({ onFiles, compact = false }: DropZoneProps) {
         />
       </svg>
 
-      <p className={compact ? 'text-sm font-medium text-zinc-700' : 'text-base font-medium text-zinc-800'}>
+      <p className={compact ? 'text-sm font-medium text-ink' : 'text-base font-medium text-ink'}>
         {compact ? '继续添加图片' : '把图片拖到这里'}
       </p>
-      <p className="text-xs text-zinc-500">
+      <p className="text-xs text-muted">
         {compact ? '或点击选择' : '也可以点击选择 · 支持 JPEG / PNG / WebP，可多选'}
       </p>
     </div>

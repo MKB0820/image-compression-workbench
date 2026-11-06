@@ -16,11 +16,11 @@ const STATUS_LABEL: Record<JobStatus, string> = {
 }
 
 const STATUS_STYLE: Record<JobStatus, string> = {
-  queued: 'bg-zinc-100 text-zinc-600',
-  processing: 'bg-blue-50 text-blue-700',
-  done: 'bg-emerald-50 text-emerald-700',
-  error: 'bg-red-50 text-red-700',
-  canceled: 'bg-zinc-100 text-zinc-500',
+  queued: 'bg-sunken text-muted',
+  processing: 'bg-accent-soft text-accent',
+  done: 'bg-success-soft text-success',
+  error: 'bg-danger-soft text-danger',
+  canceled: 'bg-sunken text-faint',
 }
 
 function RatioBadge({ originalSize, compressedSize }: { originalSize: number; compressedSize: number }) {
@@ -32,7 +32,7 @@ function RatioBadge({ originalSize, compressedSize }: { originalSize: number; co
     <span
       className={[
         'tabular shrink-0 rounded-md px-1.5 py-0.5 text-[11px] font-semibold',
-        grew ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700',
+        grew ? 'bg-warn-soft text-warn' : 'bg-success-soft text-success',
       ].join(' ')}
       title={grew ? '压缩后变大了' : '体积减少'}
     >
@@ -51,39 +51,48 @@ export function ImageRow({ item, onRemove }: ImageRowProps) {
 
   return (
     <div className="flex h-full items-center gap-3 px-4">
-      <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-zinc-100 ring-1 ring-zinc-200">
+      <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-sunken ring-1 ring-line">
         {previewUrl ? (
-          <img src={previewUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
+          <img
+            src={previewUrl}
+            alt=""
+            className="h-full w-full object-cover"
+            loading="lazy"
+            // 损坏的文件解码失败时，隐藏浏览器自带的「图片破损」图标，只留灰色占位
+            onError={(event) => {
+              event.currentTarget.style.visibility = 'hidden'
+            }}
+          />
         ) : null}
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-medium text-zinc-900" title={item.name}>
+        <p className="truncate text-sm font-medium text-ink" title={item.name}>
           {item.name}
         </p>
 
         {failed ? (
-          <p className="mt-1 truncate text-xs text-red-600" title={item.error ?? ''}>
+          <p className="mt-1 truncate text-xs text-danger" title={item.error ?? ''}>
             {item.error}
           </p>
         ) : (
-          <div className="tabular mt-1 flex min-w-0 items-center gap-1.5 overflow-hidden whitespace-nowrap text-xs text-zinc-500">
+          <div className="tabular mt-1 flex min-w-0 items-center gap-1.5 overflow-hidden whitespace-nowrap text-xs text-muted">
             <span className="shrink-0">{formatBytes(item.originalSize)}</span>
-            <span className="shrink-0 text-zinc-300">→</span>
-            <span className="shrink-0 text-zinc-700">
+            <span className="shrink-0 text-faint/60">→</span>
+            <span className="shrink-0 text-ink">
               {result ? formatBytes(result.blob.size) : '—'}
             </span>
-            <span className="shrink-0 text-zinc-300">·</span>
+            <span className="shrink-0 text-faint/60">·</span>
             <span className="shrink-0">{labelForMime(result?.mime ?? item.originalType)}</span>
             {result && result.width > 0 ? (
               <span className="shrink-0">
-                <span className="text-zinc-300">· </span>
+                <span className="text-faint/60">· </span>
                 {result.width} × {result.height}
               </span>
             ) : null}
             {result ? (
               <span className="shrink-0">
-                <span className="text-zinc-300">· </span>
+                <span className="text-faint/60">· </span>
                 {result.ms} ms
               </span>
             ) : null}
@@ -101,7 +110,7 @@ export function ImageRow({ item, onRemove }: ImageRowProps) {
       >
         {item.status === 'processing' ? (
           <span className="flex items-center gap-1">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-500" />
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
             {STATUS_LABEL[item.status]}
           </span>
         ) : (
@@ -113,7 +122,7 @@ export function ImageRow({ item, onRemove }: ImageRowProps) {
         type="button"
         onClick={() => onRemove(item.id)}
         aria-label={`移除 ${item.name}`}
-        className="shrink-0 rounded-md p-1.5 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-700"
+        className="shrink-0 rounded-md p-1.5 text-faint transition hover:bg-sunken hover:text-ink"
       >
         <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
           <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
