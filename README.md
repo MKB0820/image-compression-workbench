@@ -171,7 +171,9 @@ npm run build
 node scripts/zip-dist.mjs dist dist.zip
 ```
 
-然后在 Cloudflare 面板：**Workers & Pages → 创建 → Pages → 拖放文件**，上传 `dist.zip`。
+然后在项目里发新版本：**Pages → 项目 → 设置 → 创建部署**，上传 `dist.zip`。
+
+> 不要用「创建 → Pages → 拖放文件」那个入口更新：它只负责新建项目，遇到已存在的项目名会直接报 409。
 
 > 不要用 Windows 自带的 `Compress-Archive`：它会把条目名写成 `assets\index-xxx.js`（反斜杠），
 > 上传后所有 `/assets/*` 都会 404。`scripts/zip-dist.mjs` 用 fflate 打包并强制正斜杠。
