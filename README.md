@@ -2,7 +2,7 @@
 
 纯前端的批量图片压缩工具。拖进来、调参数、打包下载 —— **所有处理都在浏览器里完成，图片不会离开本机**。没有后端、没有上传、没有账号。
 
-**在线演示**：https://img-compress-dae.pages.dev
+**在线演示**：https://image-compression-workbench.pages.dev
 
 React 19 · TypeScript 7 · Vite 8 · Tailwind CSS 4 · Web Worker · OffscreenCanvas
 
@@ -164,7 +164,7 @@ npm run build    # tsc 三个 project + vite build
 
 ## 部署
 
-当前托管在 Cloudflare Pages（直传模式，项目名 `img-compress`），手动发布：
+当前托管在 Cloudflare Pages（直传模式，项目名 `image-compression-workbench`），手动发布：
 
 ```bash
 npm run build
